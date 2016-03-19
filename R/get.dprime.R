@@ -91,8 +91,9 @@ get.dprime <- function(x, signal.list, noise.list, is.index = FALSE,
   }
   res <- as.data.frame(do.call(rbind.data.frame, res))
   
-  if(!negative.dprime) res$dprime[res$drpime < 0] <- 0;
-  
+  # negative dprime
+  if(!negative.dprime) res$dprimes[res$dprimes < 0] <- 0
+
   errors <- c("none", "extreme(1)", "extreme(0)", "loglinear")
   res$hit.correction <- errors[res$hit.correction]
   res$fa.correction <- errors[res$fa.correction]
