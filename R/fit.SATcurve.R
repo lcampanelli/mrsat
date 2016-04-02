@@ -46,7 +46,8 @@ fit.SATcurve <- function (data, par.cond,
   
   fit <- list()
   
-  options <- match.arg(opt, several.ok=T)
+  #options <- match.arg(opt, several.ok=T)
+  options <- match.arg(opt, c("acp" ,"nlminb", "nlm", "optim"), several.ok = T)
   if(!multi.opt){ options <- options[1] }
   n.options <- length(options)
   
@@ -132,7 +133,10 @@ fit.SATcurve <- function (data, par.cond,
               SSE = SSE <- bfit$value,
               MSE = MSE <- SSE/npoints,
               RMSE = sqrt(MSE),
-              logLik = bfit$value/(2*var.dp) - log(sqrt(pi*var.dp)),
+              #logLik = bfit$value/(2*var.dp) - log(sqrt(pi*var.dp)),
+              logLik = (npoints + npoints * log(2 * pi) + npoints * log(SSE/npoints) ) / -2 , 
+              npar = npar, 
+              n = npoints, 
               R2 = R2 <- cor(dprimes, fitted)^2,
               adjR2 = 1 - (1-R2) *((npoints-1)/(npoints-npar-1)),
               data = data.frame(data, fitted=fitted),
@@ -290,12 +294,12 @@ summary.SATcurve <- function(object, ...)
   rate <- abs(pl$rate[par.cond$rate])
   incp <- abs(pl$incp[par.cond$incp])
   
-  res <- as.list(c(asym, rate, incp, object$R2, object$adjR2, object$RMSE, -2*logLik(object), AIC(object), BIC(object)))
+  res <- as.list(c(asym, rate, incp, object$R2, object$adjR2, object$SSE, object$RMSE, object$logLik, -2*logLik(object), AIC(object), BIC(object), object$npar, object$n  ))
   #, object$fit$method))
   names(res) <- c(paste("asym", 1:length(asym), sep=""), 
                   paste("rate", 1:length(rate), sep=""), 
                   paste("incp", 1:length(incp), sep=""), 
-                  "R2","adjR2", "RMSEfit", "Deviance", "AIC", "BIC")
+                  "R2","adjR2", "SSE", "RMSEfit", "logLik", "Deviance", "AIC", "BIC", "npar", "n")
   res$method <- object$fit$method
   as.data.frame(res)
 }
