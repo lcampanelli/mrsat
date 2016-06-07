@@ -108,9 +108,9 @@ get.dprime <- function(x, signal.list, noise.list, is.index = FALSE,
 average.dprime <- function(bin.list)
 {
   all <- do.call(rbind, bin.list)
-  mean <- aggregate(cbind(lags, dprimes) ~ bin + condition, data=all, mean)
-  se <- aggregate(cbind(lags, dprimes) ~ bin + condition, data=all, function(x){sd(x)/sqrt(length(x))})
-  colnames(se)[3:4] <- c("lags.se", "dprimes.se")
+  mean <- aggregate(cbind(lags, dprimes, hit, fa) ~ bin + condition, data=all, mean)
+  se <- aggregate(cbind(lags, dprimes, hit, fa) ~ bin + condition, data=all, function(x){sd(x)/sqrt(length(x))})
+  colnames(se)[3:6] <- c("lags.se", "dprimes.se", "hit.se", "fa.se")
   res <- merge(mean, se, by=c("condition", "bin"), sort=FALSE)
   class(res) <- c("mrsat.data","data.frame")
   res
