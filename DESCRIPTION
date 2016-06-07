@@ -2,7 +2,7 @@ Package: mrsat
 Type: Package
 Title: Multiple Response Speed Accuracy Tradeoff
 Version: 0.1.1
-Date: 2016-04-01
+Date: 2016-06-07
 Author: Julie Van Dyke, Matt Wagers, Pyeongwhan Cho, Kazunaga Matsuki
 Maintainer: Kazunaga Matsuki <matsukk@mcmaster.ca>, Luca Campanelli <lcampanelli@gradcenter.cuny.edu>
 Description: Functions to analyze data for psychology experiments based on Multiple Response Speed-Accuracy Tradeoff (MR-SAT) Method.
