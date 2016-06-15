@@ -39,7 +39,7 @@ read.dat <- function(file, quiet = TRUE)
     as.data.frame(dat)
 }
 
-get.param <- function(par.cond, asym=c(1, .5, 4.7), rate=c(3, .1, 12), incp=c(.25, .1, 3.0), random.start = FALSE, auto.asym = FALSE, data)
+get.param <- function(par.cond, asym=c(1, .2, 4.7), rate=c(3, .1, 12), incp=c(.25, .1, 3.0), random.start = FALSE, auto.asym = FALSE, data)
 {
   if(is.list(par.cond)){
     if(any(!(c("asym", "rate", "incp") %in% names(par.cond)))) stop("some element missing in par.cond")
